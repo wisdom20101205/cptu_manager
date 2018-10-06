@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use Illuminate\Http\Request;
-use Faker\Provider\id_ID\Company;
 
 class CompaniesController extends Controller
 {
