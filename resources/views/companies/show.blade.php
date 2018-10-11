@@ -17,6 +17,9 @@
     
                 <div class="row col-md-12 col-lg-12 col-sm-12" style="background: white; margin:10px;">
                 <!-- Example row of columns -->
+                    <div class="container">
+                    <a href="{{ route('projects.create') }}/{{ $company->id }}" class="pull-right btn btn-dark btn-lg">Add Projects</a>
+                    </div>
                     @foreach ($company->projects as $project)
                     <div class="col-lg-4 col-sm-4 col-md-4">
                         <h2>{{ $project->name }}</h2>
@@ -35,7 +38,7 @@
                     <h4>Actions</h4>
                     <ol class="list-unstyled">
                         <li><a href="/companies/{{ $company->id }}/edit">Edit</a></li>
-                        <li><a href="/projects/create">Add Project</a></li>
+                    <li><a href="/projects/create/{{ $company->id }}">Add Project</a></li>
                         <li><a href="/companies">List of Companies</a></li>
                         <li><a href="/companies/create">Create New Company</a></li>
                         <li>

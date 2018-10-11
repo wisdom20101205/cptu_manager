@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectsController extends Controller
 {
@@ -22,9 +24,14 @@ class ProjectsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($company_id = null)
     {
         //
+        $companies = null;
+        if(!$company_id) {
+            $companies = Company::where('id', Auth::user()->id)->get();
+        }
+        return view('projects.create', ['company_id' => $company_id, 'companies' => $companies]);
     }
 
     /**
@@ -36,6 +43,19 @@ class ProjectsController extends Controller
     public function store(Request $request)
     {
         //
+        // if (Auth::check()) {
+            $project = Project::create([
+                'name' => $request->input('name'),
+                'desscription' => $request->input('description'),
+                'company_id' => $request->input('company_id'),
+                'user_id' => Auth::user()->id
+            ]);
+    
+            if($project) {
+                return redirect()->route('companies.show', ['company'=> $request->input('company_id')])
+                                    ->with('success', 'Project created successfully.');
+            }
+        // }
     }
 
     /**
